@@ -157,3 +157,6 @@ venv/
 
 # Mac junk
 .DS_Store
+backend/data/*.db
+backend/data/*.json
+*.db
