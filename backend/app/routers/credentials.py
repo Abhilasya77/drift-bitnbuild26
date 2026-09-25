@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import Response
 from pydantic import BaseModel, Field
@@ -14,6 +16,7 @@ from ..services import web3_attest
 from ..services.events import audit, notify
 
 router = APIRouter(tags=["Eligibility & credential"])
+log = logging.getLogger("uvicorn.error")
 
 
 def cred_hash(c: Credential) -> str:
@@ -35,7 +38,9 @@ def attest_on_chain(db: Session, c: Credential, actor: str | None) -> None:
         audit(db, actor, "attestation_submitted", "credential", c.id, {"network": a.network})
     except Exception as exc:                      # chain down / no gas / wrong key: credential still works
         a.status = "failed"
-        audit(db, actor, "attestation_failed", "credential", c.id, {"error": type(exc).__name__})
+        log.warning("On-chain attestation failed: %s: %s", type(exc).__name__, str(exc)[:300])
+        audit(db, actor, "attestation_failed", "credential", c.id,
+              {"error": type(exc).__name__, "detail": str(exc)[:200]})
     db.add(a)
 
 

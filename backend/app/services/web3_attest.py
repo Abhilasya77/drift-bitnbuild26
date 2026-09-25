@@ -34,6 +34,10 @@ def _web3():
     if _w3 is None:
         from web3 import Web3
         _w3 = Web3(Web3.HTTPProvider(config.WEB3_RPC_URL, request_kwargs={"timeout": 15}))
+        # Polygon is a proof-of-authority style chain: its block headers carry extra data that web3.py
+        # rejects unless this middleware is added (error: "ExtraDataLengthError ... POA chain").
+        from web3.middleware import ExtraDataToPOAMiddleware
+        _w3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
     return _w3
 
 
@@ -47,11 +51,22 @@ def _send(fn) -> str:
     w3 = _web3()
     if _test_account:                                  # local test chain with unlocked account
         return w3.to_hex(fn.transact({"from": _test_account}))
-    acct = w3.eth.account.from_key(config.WEB3_PRIVATE_KEY)
+    key = config.WEB3_PRIVATE_KEY.strip()
+    acct = w3.eth.account.from_key(key if key.startswith("0x") else "0x" + key)
+    # Polygon rejects transactions whose tip is below ~25 gwei ("transaction underpriced"), and some public
+    # RPCs suggest less. Set fees explicitly: tip >= 30 gwei, max fee = 2 x base fee + tip.
+    min_tip = w3.to_wei(30, "gwei")
+    try:
+        tip = max(min_tip, w3.eth.max_priority_fee)
+    except Exception:
+        tip = min_tip
+    base_fee = w3.eth.get_block("latest").get("baseFeePerGas") or w3.eth.gas_price
     tx = fn.build_transaction({
         "from": acct.address,
         "nonce": w3.eth.get_transaction_count(acct.address, "pending"),
         "chainId": config.WEB3_CHAIN_ID,
+        "maxPriorityFeePerGas": tip,
+        "maxFeePerGas": 2 * base_fee + tip,
     })
     signed = acct.sign_transaction(tx)
     return w3.to_hex(w3.eth.send_raw_transaction(signed.raw_transaction))
