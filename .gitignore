@@ -141,3 +141,19 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# secrets - NEVER upload
+.env
+*.env
+
+# Python junk
+__pycache__/
+venv/
+.venv/
+*.pyc
+
+# models and big files
+*.pkl
+
+# Mac junk
+.DS_Store
