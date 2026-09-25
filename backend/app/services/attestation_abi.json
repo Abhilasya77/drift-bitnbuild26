@@ -1,0 +1,231 @@
+[
+ {
+  "inputs": [],
+  "stateMutability": "nonpayable",
+  "type": "constructor"
+ },
+ {
+  "inputs": [],
+  "name": "AlreadyAttested",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "AlreadyRevoked",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "NotIssuer",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "NotOwner",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "UnknownCredential",
+  "type": "error"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "bytes32",
+    "name": "credentialHash",
+    "type": "bytes32"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "issuer",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint64",
+    "name": "expiresAt",
+    "type": "uint64"
+   }
+  ],
+  "name": "Attested",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "issuer",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "bool",
+    "name": "allowed",
+    "type": "bool"
+   }
+  ],
+  "name": "IssuerSet",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "bytes32",
+    "name": "credentialHash",
+    "type": "bytes32"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "issuer",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "string",
+    "name": "reason",
+    "type": "string"
+   }
+  ],
+  "name": "Revoked",
+  "type": "event"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "bytes32",
+    "name": "credentialHash",
+    "type": "bytes32"
+   },
+   {
+    "internalType": "uint64",
+    "name": "expiresAt",
+    "type": "uint64"
+   }
+  ],
+  "name": "attest",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "isIssuer",
+  "outputs": [
+   {
+    "internalType": "bool",
+    "name": "",
+    "type": "bool"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "owner",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "bytes32",
+    "name": "credentialHash",
+    "type": "bytes32"
+   },
+   {
+    "internalType": "string",
+    "name": "reason",
+    "type": "string"
+   }
+  ],
+  "name": "revoke",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "issuer",
+    "type": "address"
+   },
+   {
+    "internalType": "bool",
+    "name": "allowed",
+    "type": "bool"
+   }
+  ],
+  "name": "setIssuer",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "bytes32",
+    "name": "credentialHash",
+    "type": "bytes32"
+   }
+  ],
+  "name": "verify",
+  "outputs": [
+   {
+    "internalType": "bool",
+    "name": "exists",
+    "type": "bool"
+   },
+   {
+    "internalType": "bool",
+    "name": "valid",
+    "type": "bool"
+   },
+   {
+    "internalType": "uint64",
+    "name": "issuedAt",
+    "type": "uint64"
+   },
+   {
+    "internalType": "uint64",
+    "name": "expiresAt",
+    "type": "uint64"
+   },
+   {
+    "internalType": "uint64",
+    "name": "revokedAt",
+    "type": "uint64"
+   },
+   {
+    "internalType": "address",
+    "name": "issuer",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ }
+]
