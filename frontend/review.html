@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviewer — Tawashir</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="logo.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke-width='9'%3E%3Cpath stroke='%238a6a9e' d='M49 10 L18 23 L18 42 C18 68 32 84 49 90'/%3E%3Cpath stroke='%235e4270' d='M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90'/%3E%3C/g%3E%3Cpath fill='%23e98fae' d='M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="bg bg--soft"><div class="bg-grain" style="animation:none; opacity:.35"></div></div>
+  <div class="dash-shell">
+    <aside class="dash-sidebar">
+      <a href="index.html" class="brand">
+        <span class="logo-mark" style="width:34px;height:34px;">
+          <svg viewBox="0 0 100 100" class="logo-svg" aria-hidden="true"><path class="lg-a" d="M49 10 L18 23 L18 42 C18 68 32 84 49 90"/><path class="lg-b" d="M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90"/><path class="lg-c" d="M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z"/></svg>
+        </span>
+        <span class="brand-name">Tawashir</span>
+      </a>
+
+      <nav class="dash-nav">
+        <a href="review.html" class="active"><i class="fa-solid fa-user-shield"></i>Review queue</a>
+        <a href="app.html"><i class="fa-solid fa-house"></i>User app</a>
+        <a href="verify.html"><i class="fa-solid fa-qrcode"></i>Verifier view</a>
+      </nav></aside>
+    <main class="dash-main">
+      <div class="dash-head"><div><h1>Human review</h1>
+        <p class="sub">Only cases the engine couldn't clear reach you, with the exact field to check. No re-reading whole identities.</p></div></div>
+      <div class="dash-grid" id="r-stats"></div>
+      <div class="panel"><h3>Open cases</h3><div id="r-queue"><p class="muted">Loading…</p></div></div>
+      <div id="r-case"></div>
+      <p class="dim" style="margin-top:14px">Signed in as reviewer: <span id="r-who"></span></p>
+    </main>
+  </div>
+  <script src="api.js"></script>
+  <script>
+    const REVIEWER = 'reviewer@drift.demo';
+    document.getElementById('r-who').textContent = REVIEWER;
+    const call = (path, opts = {}) => api(path, { ...opts, email: REVIEWER });
+    function msg(t, tone) { const el = document.getElementById('c-msg'); if (el) { el.className = 'msg show ' + tone; el.textContent = t; } }
+    function statCard(label, value, note) {
+      return '<div class="dash-card"><p class="label" style="margin-top:0">' + label + '</p><p class="value">' + value + '</p><p class="note">' + note + '</p></div>';
+    }
+    async function load() {
+      try {
+        const [s, q] = await Promise.all([call('/reviews/stats'), call('/reviews')]);
+        document.getElementById('r-stats').innerHTML =
+          statCard('Profiles checked', s.profiles_checked, 'by the consistency engine') +
+          statCard('Needed a human', s.review_cases_total, 'cases ever routed to review') +
+          statCard('Auto-cleared', s.auto_cleared_share === null ? '—' : Math.round(s.auto_cleared_share * 100) + '%', 'no approval task created') +
+          statCard('Open now', s.open_cases, 'waiting for a decision');
+        document.getElementById('r-queue').innerHTML = q.length ? '<div class="tbl-wrap"><table class="tbl"><tr><th>Person</th><th>Type</th><th>Status</th><th>Reason</th></tr>' +
+          q.map((c) => '<tr class="case" data-id="' + c.id + '"><td>' + esc(c.profile_name) + '</td><td>' + esc(c.kind.replace(/_/g, ' ')) +
+            '</td><td>' + statusChip(c.status.replace(/_/g, ' '), 'warn') + '</td><td class="explain-cell">' + esc(c.reason) + '</td></tr>').join('') + '</table></div>'
+          : '<p class="muted">Queue is empty: every case so far was explained automatically.</p>';
+        document.querySelectorAll('.case').forEach((r) => (r.onclick = () => openCase(r.dataset.id)));
+      } catch (e) { document.getElementById('r-queue').innerHTML = '<p class="msg err show">' + esc(e.message) + '</p>'; }
+    }
+    async function openCase(id) {
+      const c = await call('/reviews/' + id);
+      const rows = (list) => (list || []).map((x) => '<tr><td>' + esc(x.field.replace(/_/g, ' ')) + '</td><td>' + esc(x.source_a) + ' vs ' + esc(x.source_b) +
+        '</td><td class="dim">' + esc(x.value_a) + '<br>' + esc(x.value_b) + '</td><td>' + classChip(x.classification) + '</td><td class="explain-cell">' + esc(x.explanation) + '</td></tr>').join('');
+      document.getElementById('r-case').innerHTML = '<div class="panel"><h3>' + esc(c.profile_name) + ': check only these fields</h3>' +
+        (c.flagged_fields ? '<div class="tbl-wrap"><table class="tbl"><tr><th>Field</th><th>Compared</th><th>Values</th><th>Result</th><th>Why</th></tr>' + rows(c.flagged_fields) + '</table></div>' : '<p class="muted">' + esc(c.reason) + '</p>') +
+        (c.already_explained && c.already_explained.length ? '<details style="margin-top:12px"><summary class="dim">' + c.already_explained.length + ' fields already explained automatically</summary><div class="tbl-wrap"><table class="tbl">' + rows(c.already_explained) + '</table></div></details>' : '') +
+        '<h3 style="margin-top:20px">Evidence (confirmed fields)</h3>' + c.evidence.map((d) => '<p><strong>' + esc(DOC_LABEL[d.document_type] || d.document_type) + '</strong> <span class="dim">' +
+          esc(Object.entries(d.confirmed_fields).map(([k, v]) => k + ': ' + v).join(' · ')) + '</span></p>').join('') +
+        '<div class="field" style="margin-top:14px"><label>Note (optional)</label><input id="c-note" placeholder="e.g. Printed DOB does not match the MRZ" /></div>' +
+        '<div class="btn-row"><button class="btn" id="c-clear">Cleared: same person</button><button class="btn danger" id="c-reject">Not cleared</button>' +
+        '<button class="btn ghost" id="c-evidence">Request another document</button></div><p class="msg" id="c-msg"></p></div>';
+      document.getElementById('r-case').scrollIntoView({ behavior: 'smooth' });
+      const resolve = async (decision) => {
+        try { await call('/reviews/' + id + '/resolve', { method: 'POST', body: { decision, note: document.getElementById('c-note').value || null } });
+          msg('Recorded: ' + decision.replace('_', ' ') + '.', 'ok'); load(); } catch (e) { msg(e.message, 'err'); }
+      };
+      document.getElementById('c-clear').onclick = () => resolve('cleared');
+      document.getElementById('c-reject').onclick = () => resolve('not_cleared');
+      document.getElementById('c-evidence').onclick = async () => {
+        try { await call('/reviews/' + id + '/request-evidence', { method: 'POST', body: { document_type: 'other',
+            message: document.getElementById('c-note').value || 'Please upload one more document that shows your name and date of birth.' } });
+          msg('Request sent to the person.', 'ok'); load(); } catch (e) { msg(e.message, 'err'); }
+      };
+    }
+    load();
+  </script>
+</body>
+</html>

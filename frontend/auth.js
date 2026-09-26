@@ -53,7 +53,7 @@ function initLoginForm() {
 
     if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
       setSession(DEMO_NAME, email);
-      window.location.href = 'dashboard.html';
+      window.location.href = 'app.html';
     } else {
       showError(errorEl, 'That email or password doesn\u2019t match our demo account. Use the demo credentials below, or try again.');
     }
@@ -94,7 +94,7 @@ function initSignupForm() {
     // Demo mode: account creation is simulated locally, then routed to the
     // dashboard. Account creation alone does not mark identity as verified (FR-01).
     setSession(name, email);
-    window.location.href = 'dashboard.html';
+    window.location.href = 'app.html';
   });
 }
 

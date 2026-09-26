@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify a credential — Tawashir</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="logo.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke-width='9'%3E%3Cpath stroke='%238a6a9e' d='M49 10 L18 23 L18 42 C18 68 32 84 49 90'/%3E%3Cpath stroke='%235e4270' d='M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90'/%3E%3C/g%3E%3Cpath fill='%23e98fae' d='M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="bg bg--soft"><div class="bg-grain" style="animation:none; opacity:.35"></div></div>
+  <div class="dash-shell">
+    <main class="dash-main verify-card" style="margin:0 auto">
+      <div style="margin-bottom:24px"><a href="index.html" class="brand">
+        <span class="logo-mark" style="width:34px;height:34px;">
+          <svg viewBox="0 0 100 100" class="logo-svg" aria-hidden="true"><path class="lg-a" d="M49 10 L18 23 L18 42 C18 68 32 84 49 90"/><path class="lg-b" d="M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90"/><path class="lg-c" d="M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z"/></svg>
+        </span>
+        <span class="brand-name">Tawashir</span>
+      </a></div>
+      <div class="dash-head"><div><h1>Credential verification</h1>
+        <p class="sub">For participating services (bank, exchange house, telecom). You see only what you need, never document images, numbers or biometrics.</p></div></div>
+      <div class="panel" id="v-result"><p class="muted">Checking…</p></div>
+      <div class="panel"><h3>Check a name against this person's verified documents</h3>
+        <p class="dim">Example: the beneficiary name on a transfer. Accepted if it's a supported variation (father's name added, spacing, word order, spelling variant).</p>
+        <div class="field"><input id="v-name" placeholder="e.g. Ravi Kumar Venkatesh Srinivasa Rao" /></div>
+        <button class="btn" id="v-check">Check name</button>
+        <p class="msg" id="v-msg"></p>
+      </div>
+      <div class="panel"><h3>Enter a credential token manually</h3>
+        <div class="field"><input id="v-token" placeholder="Paste the token from the QR link" /></div>
+        <button class="btn ghost" id="v-go">Verify</button>
+      </div>
+    </main>
+  </div>
+  <script src="api.js"></script>
+  <script>
+    const token = (new URLSearchParams(location.search).get('token') || '').replace(/^\/+/, '');
+    const box = document.getElementById('v-result');
+    function msg(t, tone) { const el = document.getElementById('v-msg'); el.className = 'msg show ' + tone; el.textContent = t; }
+    async function verify() {
+      if (!token) { box.innerHTML = '<p class="muted">Scan a credential QR code or paste a token below.</p>'; return; }
+      try {
+        const r = await fetch(API_BASE + '/verify/' + encodeURIComponent(token));
+        const v = await r.json();
+        if (!r.ok) { box.innerHTML = '<h3>Result</h3><p class="big-state" style="color:var(--conflict)">Not found</p><p class="muted">' + esc(v.detail || 'Invalid credential') + '</p>'; return; }
+        const oc = v.on_chain_attestation;
+        box.innerHTML = '<p class="dim">Result</p><p class="big-state" style="color:' + (v.is_valid ? 'var(--positive)' : 'var(--conflict)') + '">' +
+          (v.is_valid ? 'Valid credential' : 'Not valid: ' + esc(v.credential_state)) + '</p>' +
+          '<div class="kv">' +
+          '<div class="k">Credential ID</div><div>' + esc(v.credential_id) + '</div>' +
+          '<div class="k">State</div><div>' + statusChip(v.credential_state, v.is_valid ? 'positive' : 'conflict') + '</div>' +
+          '<div class="k">Identity evidence established</div><div>' + (v.identity_evidence_established ? 'Yes' : 'No') + '</div>' +
+          '<div class="k">Biometric completed</div><div>' + (v.biometric_completed ? 'Yes' : 'No') + '</div>' +
+          '<div class="k">Unresolved conflicts</div><div>' + (v.unresolved_conflicts ? 'Yes' : 'None') + '</div>' +
+          '<div class="k">Expires</div><div>' + fmtDate(v.expires_at) + '</div>' +
+          '<div class="k">Name on record</div><div>' + esc(v.supported_name_representation) + '</div>' +
+          '<div class="k">Issuer</div><div>' + esc(v.issuer) + '</div>' +
+          (oc ? '<div class="k">On-chain attestation</div><div>' + statusChip(oc.status, oc.status === 'confirmed' ? 'positive' : 'warn') +
+            (oc.valid_on_chain !== undefined ? ' ' + statusChip(oc.valid_on_chain ? 'valid on-chain' : (oc.revoked_on_chain ? 'revoked on-chain' : 'not valid on-chain'), oc.valid_on_chain ? 'positive' : 'conflict') : '') +
+            (oc.explorer_url ? '<br><a class="mono" target="_blank" rel="noopener" href="' + esc(oc.explorer_url) + '">View on Polygonscan</a>' : '') + '</div>' : '') +
+          '</div><p class="dim" style="margin-top:16px">' + esc(v.note) + '</p>';
+      } catch (e) { box.innerHTML = '<p class="muted">Cannot reach the server right now. Try again in a minute.</p>'; }
+    }
+    document.getElementById('v-check').onclick = async () => {
+      const name = document.getElementById('v-name').value.trim();
+      if (!token || !name) return msg('Need a credential and a name.', 'err');
+      try {
+        const r = await fetch(API_BASE + '/verify/' + encodeURIComponent(token) + '/name', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name }) });
+        const v = await r.json();
+        msg((v.supported ? 'Supported. ' : 'Not supported. ') + (v.explanation || ''), v.supported ? 'ok' : 'err');
+      } catch (e) { msg('Cannot reach the server.', 'err'); }
+    };
+    document.getElementById('v-go').onclick = () => {
+      const t = document.getElementById('v-token').value.trim().split(/[/=]/).pop();
+      if (t) location.href = 'verify.html?token=' + encodeURIComponent(t);
+    };
+    verify();
+  </script>
+</body>
+</html>
