@@ -1,4 +1,4 @@
-# Tawashir: identity continuity for people on the move
+# Tawashir
 
 **Team Drift · BitNBuild '26 (UAE Regional Round)**
 
@@ -8,7 +8,7 @@ Tawashir is a web platform that establishes a person's identity from several doc
 
 | | Link |
 |---|---|
-| 🌐 Live app | `FRONTEND_URL` |
+| 🌐 Live app | https://drift-bitnbuild26.vercel.app |
 | ⚙️ Live API (Swagger docs) | https://drift-backend-oemw.onrender.com/docs |
 | ⛓️ Attestation contract (Polygon Amoy) | [`0xB292a0b992B1F90e6B2374bA45Dba3f678F2e036`](https://amoy.polygonscan.com/address/0xB292a0b992B1F90e6B2374bA45Dba3f678F2e036) |
 
