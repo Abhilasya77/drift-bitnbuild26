@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Tawashir</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="logo.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke-width='9'%3E%3Cpath stroke='%238a6a9e' d='M49 10 L18 23 L18 42 C18 68 32 84 49 90'/%3E%3Cpath stroke='%235e4270' d='M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90'/%3E%3C/g%3E%3Cpath fill='%23e98fae' d='M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <!-- Soft dusk glow (same colours as the home page), no moving waves -->
+  <div class="bg bg--soft"><div class="bg-grain" style="animation:none; opacity:.35"></div></div>
+
+  <div class="dash-shell" id="dash-shell">
+    <aside class="dash-sidebar">
+      <a href="index.html" class="brand">
+        <span class="logo-mark" style="width:34px;height:34px;">
+          <svg viewBox="0 0 100 100" class="logo-svg" aria-hidden="true"><path class="lg-a" d="M49 10 L18 23 L18 42 C18 68 32 84 49 90"/><path class="lg-b" d="M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90"/><path class="lg-c" d="M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z"/></svg>
+        </span>
+        <span class="brand-name">Tawashir</span>
+      </a>
+
+      <nav class="dash-nav">
+        <a href="dashboard.html" class="active"><i class="fa-solid fa-house"></i>Overview</a>
+        <a href="#"><i class="fa-regular fa-user"></i>Identity</a>
+        <a href="#"><i class="fa-regular fa-folder-open"></i>Documents</a>
+        <a href="#"><i class="fa-solid fa-code-compare"></i>Consistency</a>
+        <a href="#"><i class="fa-solid fa-fingerprint"></i>Biometric</a>
+        <a href="#"><i class="fa-solid fa-qrcode"></i>My credential</a>
+        <a href="#"><i class="fa-regular fa-calendar"></i>Document health</a>
+        <a href="#"><i class="fa-regular fa-bell"></i>Notifications<span class="nav-badge">1</span></a>
+        <a href="#"><i class="fa-regular fa-circle-question"></i>Help</a>
+      </nav>
+
+      <button class="dash-signout" data-signout><i class="fa-solid fa-arrow-right-from-bracket" style="margin-right:8px"></i>Sign out</button>
+    </aside>
+
+    <div style="flex:1; display:flex; flex-direction:column; min-width:0;">
+      <div class="dash-topbar">
+        <a href="index.html" class="brand">
+          <span class="logo-mark" style="width:32px;height:32px;">
+            <svg viewBox="0 0 100 100" class="logo-svg" aria-hidden="true"><path class="lg-a" d="M49 10 L18 23 L18 42 C18 68 32 84 49 90"/><path class="lg-b" d="M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90"/><path class="lg-c" d="M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z"/></svg>
+          </span>
+          <span class="brand-name">Tawashir</span>
+        </a>
+        <button class="dash-signout" data-signout style="width:auto; border-top:none; margin:0;">Sign out</button>
+      </div>
+
+      <main class="dash-main">
+        <div class="dash-head anim" style="--d:.02s">
+          <div>
+            <h1>Welcome back, <span id="dash-username">there</span></h1>
+            <p class="sub">Here's where your identity stands today.</p>
+          </div>
+        </div>
+
+        <!-- Status hero -->
+        <section class="dash-hero anim" style="--d:.1s">
+          <div>
+            <p class="hero-label">Identity continuity</p>
+            <h2>Evidence backed</h2>
+            <p class="hero-desc">Your passport, national ID and visa have been linked into one identity.
+              Your temporary credential is active while your permanent ID is pending.</p>
+            <div class="hero-chips">
+              <span class="lchip lchip--match"><i class="fa-solid fa-check"></i> Documents linked</span>
+              <span class="lchip lchip--variant"><i class="fa-solid fa-link"></i> Explainable variant</span>
+              <span class="lchip lchip--match"><i class="fa-solid fa-check"></i> Biometric passed</span>
+            </div>
+          </div>
+
+          <div class="mini-cred">
+            <div class="cred-top">
+              <span class="cred-brand" style="font-size:14px">Temporary credential</span>
+              <span class="status-dot">Active</span>
+            </div>
+            <div class="cred-mid">
+              <div>
+                <p class="cred-name" data-fullname style="font-size:13px">MOHAMMED ABDULRAHMAN ALI</p>
+                <p class="cred-id">TWS-8F3K-22QD</p>
+                <div class="cred-meta" style="margin-top:12px"><p><small>Expires</small>24 Dec 2026</p></div>
+              </div>
+              <div class="qr" data-seed="8F3K22QD" aria-label="Sample QR code"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Status cards -->
+        <div class="dash-grid">
+          <div class="dash-card anim" style="--d:.18s">
+            <div class="card-top"><span class="card-icon"><i class="fa-solid fa-code-compare"></i></span><span class="chip positive">Passed</span></div>
+            <p class="label">Identity consistency</p>
+            <p class="value">Explainable variant</p>
+            <p class="note">“ABDUL RAHMAN” vs “ABDULRAHMAN” — spacing difference only.</p>
+          </div>
+          <div class="dash-card anim" style="--d:.22s">
+            <div class="card-top"><span class="card-icon"><i class="fa-solid fa-fingerprint"></i></span><span class="chip positive">Passed</span></div>
+            <p class="label">Biometric verification</p>
+            <p class="value">Face match + liveness</p>
+            <p class="note">Completed 26 Sep 2026 · ref BIO-55A1</p>
+          </div>
+          <div class="dash-card anim" style="--d:.26s">
+            <div class="card-top"><span class="card-icon"><i class="fa-regular fa-id-card"></i></span><span class="chip neutral">Pending</span></div>
+            <p class="label">Permanent credential</p>
+            <p class="value">Not yet issued</p>
+            <p class="note">Upload it here when it arrives — we'll link it automatically.</p>
+          </div>
+          <div class="dash-card anim" style="--d:.3s">
+            <div class="card-top"><span class="card-icon"><i class="fa-regular fa-calendar"></i></span><span class="chip warn">Renews soon</span></div>
+            <p class="label">Document health</p>
+            <p class="value">Visa renews in 42 days</p>
+            <p class="note">Passport and national ID are valid.</p>
+          </div>
+        </div>
+
+        <!-- Checklist + notifications -->
+        <div class="dash-split">
+          <div class="panel anim" style="--d:.34s">
+            <h3>Credential requirements</h3>
+            <ul class="checklist">
+              <li><span class="tick done"><i class="fa-solid fa-check"></i></span>Identity profile created<span class="chip positive">Done</span></li>
+              <li><span class="tick done"><i class="fa-solid fa-check"></i></span>Documents uploaded (3)<span class="chip positive">Done</span></li>
+              <li><span class="tick done"><i class="fa-solid fa-check"></i></span>Cross-document consistency<span class="chip positive">Passed</span></li>
+              <li><span class="tick done"><i class="fa-solid fa-check"></i></span>Human review<span class="chip neutral">Not required</span></li>
+              <li><span class="tick done"><i class="fa-solid fa-check"></i></span>Biometric verification<span class="chip positive">Passed</span></li>
+              <li><span class="tick todo"><i class="fa-solid fa-hourglass-half"></i></span>Permanent credential<span class="chip neutral">Pending</span></li>
+            </ul>
+          </div>
+
+          <div class="panel anim" style="--d:.38s">
+            <h3>Notifications</h3>
+            <div class="notice">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <div>
+                <strong>Action required</strong>
+                <p>Your residence visa renews in 42 days. Upload the renewed visa so your identity stays continuous.</p>
+                <a href="#">Upload renewed visa</a>
+              </div>
+            </div>
+            <div class="notice soft">
+              <i class="fa-regular fa-bell"></i>
+              <div>
+                <strong>Credential issued</strong>
+                <p>Your temporary credential TWS-8F3K-22QD is active until 24 Dec 2026.</p>
+                <a href="#">View credential</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Tawashir logo — shield + check, drawn as SVG so it has no background.
+   Load this AFTER styles.css.
+   ========================================================================== */
+
+/* Colours on dark backgrounds (footer, dashboard, credential card) */
+:root {
+  --logo-a: #f3c9c0;      /* shield, left half (light rose) */
+  --logo-b: #d9a39a;      /* shield, right half (deeper rose) */
+  --logo-check: #f7b58f;  /* check mark (soft peach) */
+}
+
+/* Colours in the homepage header, which sits on the light pastel sky */
+.site-header {
+  --logo-a: #6b3a4a;      /* deep rose-brown */
+  --logo-b: #4a2432;      /* darker rose-brown */
+  --logo-check: #e0876a;  /* copper peach */
+}
+
+/* Remove the old white circle so the logo blends into the page */
+.logo-mark {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0;
+}
+.logo-mark svg { width: 100%; height: 100%; overflow: visible; }
+
+.logo-svg path { fill: none; stroke-width: 8; stroke-linejoin: miter; stroke-linecap: butt; }
+.logo-svg .lg-a { stroke: var(--logo-a); }
+.logo-svg .lg-b { stroke: var(--logo-b); }
+.logo-svg .lg-c { fill: var(--logo-check); stroke: none; }
+
+/* small hover lift instead of the old scale on a circle */
+.logo-mark { transition: transform 0.25s ease; }
+.brand:hover .logo-mark { transform: translateY(-1px) rotate(-3deg); }

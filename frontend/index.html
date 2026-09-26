@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en" class="snap-page">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tawashir — Identity Built To Continue</title>
+  <meta name="description" content="Tawashir keeps one evidence-backed identity intact while your documents change, renew, or arrive at different times." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="logo.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke-width='9'%3E%3Cpath stroke='%238a6a9e' d='M49 10 L18 23 L18 42 C18 68 32 84 49 90'/%3E%3Cpath stroke='%235e4270' d='M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90'/%3E%3C/g%3E%3Cpath fill='%23e98fae' d='M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <!-- Background: animated canvas waves (first screen only) -->
+  <div class="bg bg--hero">
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-grain"></div>
+  </div>
+
+  <div class="page">
+    <header class="site-header">
+      <div class="header-row">
+        <a href="index.html" class="brand">
+          <span class="logo-mark">
+            <svg viewBox="0 0 100 100" class="logo-svg" aria-hidden="true"><path class="lg-a" d="M49 10 L18 23 L18 42 C18 68 32 84 49 90"/><path class="lg-b" d="M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90"/><path class="lg-c" d="M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z"/></svg>
+          </span>
+          <span class="brand-name">Tawashir</span>
+        </a>
+
+        <nav class="nav-pill">
+          <a href="index.html" class="active">Home</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#for-organizations">For organizations</a>
+          <a href="#help">Help</a>
+        </nav>
+
+        <a href="login.html" class="signin-pill">Log in</a>
+
+        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile menu -->
+    <div class="mobile-overlay" id="mobile-overlay" hidden>
+      <div class="mobile-sheet">
+        <a href="index.html" class="active" style="animation-delay:.05s">Home</a>
+        <a href="#how-it-works" style="animation-delay:.1s">How it works</a>
+        <a href="#for-organizations" style="animation-delay:.15s">For organizations</a>
+        <a href="#help" style="animation-delay:.2s">Help</a>
+        <a href="login.html" style="animation-delay:.25s">Log in</a>
+        <a href="signup.html" class="sheet-signin" style="animation-delay:.3s">Sign up</a>
+      </div>
+    </div>
+
+    <main class="hero">
+      <div class="trust-row anim" style="--d:.05s">
+        <div class="trust-avatar"><div class="inner"><i class="fa-solid fa-passport"></i></div></div>
+        <div class="trust-avatar"><div class="inner"><i class="fa-solid fa-id-card"></i></div></div>
+        <div class="trust-avatar"><div class="inner"><i class="fa-solid fa-fingerprint"></i></div></div>
+        <div class="trust-pill"><span class="long">One identity, every document</span><span class="short">One identity</span></div>
+      </div>
+
+      <h1 class="headline">
+        <span>Identity,</span>
+        <span>Built To Continue</span>
+      </h1>
+
+      <p class="subhead anim" style="--d:.28s">
+        Tawashir keeps one evidence-backed identity intact across your passport, ID and visa —
+        verified by AI, confirmed by biometrics, and bridged by a temporary credential while your
+        permanent one is on its way.
+      </p>
+
+      <div class="cta-row anim" style="--d:.4s">
+        <a href="signup.html" class="cta-primary">Get started</a>
+        <a href="#how-it-works" class="cta-secondary">See how it works</a>
+      </div>
+    </main>
+
+    <section class="stats" aria-label="Platform capabilities">
+      <div class="stat anim" style="--d:.5s" data-target="3" data-decimals="0" data-suffix="">
+        <div class="stat-icon">&lt;</div>
+        <div class="stat-value">0</div>
+        <div class="stat-label">Documents Cross-Checked</div>
+      </div>
+      <div class="stat anim" style="--d:.58s" data-target="98" data-decimals="0" data-suffix="%">
+        <div class="stat-icon">%</div>
+        <div class="stat-value">0%</div>
+        <div class="stat-label">Routine Cases Auto-Resolved</div>
+      </div>
+      <div class="stat anim" style="--d:.66s" data-target="24" data-decimals="0" data-suffix="/7">
+        <div class="stat-icon">*</div>
+        <div class="stat-value">0/7</div>
+        <div class="stat-label">Credential Verification</div>
+      </div>
+      <div class="stat anim" style="--d:.74s" data-target="4" data-decimals="0" data-suffix="">
+        <div class="stat-icon">#</div>
+        <div class="stat-value">0</div>
+        <div class="stat-label">Consistency States Explained</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- =====================================================================
+       HOW IT WORKS — sticky side rail + scrolling story
+       ===================================================================== -->
+  <section class="section" id="how-it-works">
+    <div class="section-head">
+      <div class="reveal-onscroll">
+      <h2 class="big-statement">Documents change.<br /><span class="grad-text">Your identity shouldn't.</span></h2>
+      <p class="lede">
+        Tawashir treats your passport, ID and visa as one evidence package — not three strangers.
+        Here's what happens from the moment you upload to the day your permanent credential arrives.
+      </p>
+      </div>
+    </div>
+
+    <div class="story" id="story">
+      <!-- Sticky rail (desktop) / chip bar (mobile) -->
+      <aside class="story-rail" aria-label="Steps">
+        <div class="rail-track"><div class="rail-fill" id="rail-fill"></div></div>
+        <a href="#step-documents" class="rail-link active"><span class="rail-num">01</span>Documents</a>
+        <a href="#step-names" class="rail-link"><span class="rail-num">02</span>Flexible names</a>
+        <a href="#step-consistency" class="rail-link"><span class="rail-num">03</span>AI consistency</a>
+        <a href="#step-review" class="rail-link"><span class="rail-num">04</span>Human review</a>
+        <a href="#step-biometric" class="rail-link"><span class="rail-num">05</span>Biometric</a>
+        <a href="#step-credential" class="rail-link"><span class="rail-num">06</span>Temporary credential</a>
+        <a href="#step-permanent" class="rail-link"><span class="rail-num">07</span>Permanent handover</a>
+      </aside>
+
+      <div class="story-steps">
+
+        <!-- 01 Documents -->
+        <article class="story-step" id="step-documents">
+          <div class="step-copy reveal-onscroll">
+            <h3>Upload what you have. We read it all together.</h3>
+            <p>Passport, national ID, residence visa — each one is scanned, its fields extracted, and
+              every document is linked back to the same person instead of being judged on its own.</p>
+          </div>
+          <div class="stage stage--lavender reveal-onscroll">
+            <div class="doc-stack">
+              <div class="doc doc--passport">
+                <div class="doc-top"><span>PASSPORT</span><span class="doc-sample">SAMPLE</span></div>
+                <div class="doc-body">
+                  <div class="doc-photo"><i class="fa-solid fa-user"></i></div>
+                  <div class="doc-fields">
+                    <p><small>Surname</small>ALI</p>
+                    <p><small>Given names</small>MOHAMMED ABDUL RAHMAN</p>
+                    <p><small>Date of birth</small>14 MAR 1996</p>
+                  </div>
+                </div>
+                <div class="doc-mrz">P&lt;XXXALI&lt;&lt;MOHAMMED&lt;ABDUL&lt;RAHMAN&lt;&lt;&lt;&lt;&lt;&lt;</div>
+              </div>
+              <div class="doc doc--id">
+                <div class="doc-top"><span>NATIONAL ID</span><span class="doc-sample">SAMPLE</span></div>
+                <div class="doc-body">
+                  <div class="doc-photo"><i class="fa-solid fa-user"></i></div>
+                  <div class="doc-fields">
+                    <p><small>Name</small>MOHAMMED ABDULRAHMAN ALI</p>
+                    <p><small>Date of birth</small>14/03/1996</p>
+                  </div>
+                </div>
+              </div>
+              <div class="doc doc--visa">
+                <div class="doc-top"><span>RESIDENCE VISA</span><span class="doc-sample">SAMPLE</span></div>
+                <div class="doc-body">
+                  <div class="doc-fields">
+                    <p><small>Full name</small>Mohammed A. Rahman Ali</p>
+                    <p><small>Valid until</small>02 Nov 2026</p>
+                  </div>
+                </div>
+              </div>
+              <div class="upload-toast"><i class="fa-solid fa-circle-check"></i> 3 documents linked to one profile</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 Flexible names -->
+        <article class="story-step" id="step-names">
+          <div class="step-copy reveal-onscroll">
+            <h3>Your name, the way it's actually written.</h3>
+            <p>No forced first / middle / last boxes. Joined, separated, reordered, abbreviated or
+              transliterated — legitimate forms of the same name are recognised, not rejected.</p>
+          </div>
+          <div class="stage stage--peach reveal-onscroll">
+            <div class="window">
+              <div class="window-bar"><i></i><i></i><i></i><span>Identity profile</span></div>
+              <div class="window-body">
+                <p class="mock-label">Name as you use it</p>
+                <div class="mock-input">Mohammed Abdul Rahman Ali<span class="caret"></span></div>
+                <p class="mock-label" style="margin-top:18px">Recognised forms across your documents</p>
+                <ul class="name-forms">
+                  <li><span>MOHAMMED ABDUL RAHMAN ALI</span><em>Passport</em></li>
+                  <li><span>MOHAMMED ABDULRAHMAN ALI</span><em>Joined</em></li>
+                  <li><span>Mohammed A. Rahman Ali</span><em>Abbreviated</em></li>
+                  <li><span dir="rtl" lang="ar">محمد عبد الرحمن علي</span><em>Arabic script</em></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 AI consistency -->
+        <article class="story-step" id="step-consistency">
+          <div class="step-copy reveal-onscroll">
+            <h3>Every difference gets a label — and a reason.</h3>
+            <p>The matching engine compares the whole package, then sorts each difference into one of
+              four plain-language states. It explains; it never accuses.</p>
+          </div>
+          <div class="stage stage--dusk reveal-onscroll">
+            <div class="window window--wide">
+              <div class="window-bar"><i></i><i></i><i></i><span>Consistency check</span></div>
+              <div class="window-body">
+                <table class="cmp">
+                  <thead><tr><th>Field</th><th>Passport</th><th>National ID</th><th>Result</th></tr></thead>
+                  <tbody>
+                    <tr><td>Name</td><td>ABDUL RAHMAN</td><td>ABDULRAHMAN</td><td><span class="lchip lchip--variant"><i class="fa-solid fa-link"></i> Explainable variant</span></td></tr>
+                    <tr><td>Date of birth</td><td>14 MAR 1996</td><td>14/03/1996</td><td><span class="lchip lchip--match"><i class="fa-solid fa-check"></i> Match</span></td></tr>
+                    <tr><td>Nationality</td><td>XXX</td><td>XXX</td><td><span class="lchip lchip--match"><i class="fa-solid fa-check"></i> Match</span></td></tr>
+                  </tbody>
+                </table>
+                <div class="explain">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  <p><strong>Why this passed:</strong> “ABDUL RAHMAN” and “ABDULRAHMAN” differ only by spacing.
+                    Date of birth and nationality agree, so this is recorded as an explainable variant.</p>
+                </div>
+                <div class="legend">
+                  <span class="lchip lchip--match">Match</span>
+                  <span class="lchip lchip--variant">Explainable variant</span>
+                  <span class="lchip lchip--uncertain">Uncertain</span>
+                  <span class="lchip lchip--conflict">Conflict</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04 Human review -->
+        <article class="story-step" id="step-review">
+          <div class="step-copy reveal-onscroll">
+            <h3>People only look when it genuinely matters.</h3>
+            <p>Routine cases resolve automatically. Only uncertain or conflicting ones reach a reviewer —
+              with the exact field highlighted, so nobody re-checks the whole file from scratch.</p>
+          </div>
+          <div class="stage stage--lavender reveal-onscroll">
+            <div class="window window--wide">
+              <div class="window-bar"><i></i><i></i><i></i><span>Reviewer queue</span></div>
+              <div class="window-body review">
+                <ul class="queue">
+                  <li class="muted-row"><span>Case #2041</span><span class="lchip lchip--match">Auto-resolved</span></li>
+                  <li class="flag-row"><span>Case #2042</span><span class="lchip lchip--uncertain"><i class="fa-solid fa-flag"></i> Review required</span></li>
+                  <li class="muted-row"><span>Case #2043</span><span class="lchip lchip--match">Auto-resolved</span></li>
+                  <li class="muted-row"><span>Case #2044</span><span class="lchip lchip--match">Auto-resolved</span></li>
+                </ul>
+                <div class="diff">
+                  <p class="mock-label">Case #2042 · Name</p>
+                  <div class="diff-row"><small>Passport</small><span>MOHAMMED ABDUL <mark class="hl">RAHMAN</mark></span></div>
+                  <div class="diff-row"><small>Visa</small><span>MOHAMMED ABDUL <mark class="hl">HAMEED</mark></span></div>
+                  <p class="diff-note">Different name token — not a spacing or spelling variant. Additional evidence requested.</p>
+                  <div class="diff-actions"><span class="btn-mock btn-mock--ghost">Request document</span><span class="btn-mock">Approve</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 Biometric -->
+        <article class="story-step" id="step-biometric">
+          <div class="step-copy reveal-onscroll">
+            <h3>One quick check that it's really you.</h3>
+            <p>After your documents line up, a short face check confirms the person matches the evidence.
+              The result is stored — not your raw biometric data.</p>
+          </div>
+          <div class="stage stage--peach reveal-onscroll">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="face-frame">
+                <svg viewBox="0 0 120 150" class="face-svg" aria-hidden="true">
+                  <ellipse cx="60" cy="72" rx="42" ry="54" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 5"/>
+                  <circle cx="44" cy="64" r="3" fill="currentColor"/>
+                  <circle cx="76" cy="64" r="3" fill="currentColor"/>
+                  <path d="M60 70 L56 88 L63 88" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                  <path d="M47 102 Q60 110 73 102" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                </svg>
+                <div class="scan-line"></div>
+              </div>
+              <ul class="checks">
+                <li><i class="fa-solid fa-circle-check"></i> Face matches document photo</li>
+                <li><i class="fa-solid fa-circle-check"></i> Liveness confirmed</li>
+                <li class="pending"><i class="fa-solid fa-circle-notch"></i> Saving verification reference…</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- 06 Temporary credential -->
+        <article class="story-step" id="step-credential">
+          <div class="step-copy reveal-onscroll">
+            <h3>A bridge while your permanent ID is on its way.</h3>
+            <p>When the requirements are met, Tawashir issues a time-limited platform credential with a QR
+              code — enough for a participating service to confirm who you are, and nothing more.</p>
+          </div>
+          <div class="stage stage--night reveal-onscroll">
+            <div class="cred-card">
+              <div class="cred-top">
+                <span class="cred-brand">
+                  <span class="logo-mark cred-logo"><svg viewBox="0 0 100 100" class="logo-svg" aria-hidden="true"><path class="lg-a" d="M49 10 L18 23 L18 42 C18 68 32 84 49 90"/><path class="lg-b" d="M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90"/><path class="lg-c" d="M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z"/></svg></span>
+                  Tawashir
+                </span>
+                <span class="status-dot">Active</span>
+              </div>
+              <div class="cred-mid">
+                <div>
+                  <p class="cred-name">MOHAMMED ABDULRAHMAN ALI</p>
+                  <p class="cred-id">TWS-8F3K-22QD</p>
+                  <div class="cred-meta">
+                    <p><small>Issued</small>26 Sep 2026</p>
+                    <p><small>Expires</small>24 Dec 2026</p>
+                  </div>
+                </div>
+                <div class="qr" data-seed="8F3K22QD" aria-label="Sample QR code"></div>
+              </div>
+              <p class="cred-foot">Platform-issued temporary credential · not a government ID</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 07 Permanent credential -->
+        <article class="story-step" id="step-permanent">
+          <div class="step-copy reveal-onscroll">
+            <h3>When your permanent ID arrives, the bridge steps aside.</h3>
+            <p>The new credential is checked against your existing identity record. If it's consistent,
+              it's linked — and the temporary credential expires on its own.</p>
+          </div>
+          <div class="stage stage--dusk reveal-onscroll">
+            <div class="handover">
+              <div class="ho-card ho-card--old">
+                <p class="ho-label">Temporary credential</p>
+                <p class="ho-value">TWS-8F3K-22QD</p>
+                <span class="lchip lchip--neutral">Expired · replaced</span>
+              </div>
+              <div class="ho-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              <div class="ho-card ho-card--new">
+                <p class="ho-label">Permanent national ID</p>
+                <p class="ho-value">Linked to your record</p>
+                <span class="lchip lchip--match"><i class="fa-solid fa-check"></i> Consistent</span>
+              </div>
+              <ol class="ho-timeline">
+                <li class="done">Temporary credential active</li>
+                <li class="done">Permanent ID uploaded</li>
+                <li class="done">Checked against identity record</li>
+                <li class="now">Temporary credential expired</li>
+              </ol>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       FOR ORGANIZATIONS — verifier portal mock
+       ===================================================================== -->
+  <section class="section" id="for-organizations">
+    <div class="slide org-slide">
+    <div class="org-grid">
+      <div class="org-copy reveal-onscroll">
+        <h2 class="big-statement small">Verify a person.<br /><span class="grad-text">See only what you need.</span></h2>
+        <p class="lede">A bank, landlord or employer scans the QR or enters the credential token. They get a
+          clear answer in seconds — without ever touching the underlying documents.</p>
+        <ul class="org-points">
+          <li><span class="pt-icon"><i class="fa-solid fa-qrcode"></i></span><div><strong>Scan or enter a token</strong><p>No account needed on the person's side, no document uploads on yours.</p></div></li>
+          <li><span class="pt-icon"><i class="fa-solid fa-shield-halved"></i></span><div><strong>Status you can act on</strong><p>Active, in transition, expired or revoked — never ambiguous.</p></div></li>
+          <li><span class="pt-icon"><i class="fa-solid fa-signature"></i></span><div><strong>Permitted name only</strong><p>The name form supported by accepted evidence, not a forced master string.</p></div></li>
+        </ul>
+      </div>
+
+      <div class="stage stage--lavender stage--tall reveal-onscroll">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="url"><i class="fa-solid fa-lock"></i> verify.tawashir.demo</span>
+          </div>
+          <div class="browser-body">
+            <p class="mock-label">Credential token</p>
+            <div class="mock-input">TWS-8F3K-22QD <span class="btn-mock">Verify</span></div>
+
+            <div class="result">
+              <div class="result-head">
+                <span class="result-icon"><i class="fa-solid fa-check"></i></span>
+                <div><strong>Credential active</strong><p>Checked just now</p></div>
+              </div>
+              <dl class="result-rows">
+                <div><dt>Identity evidence</dt><dd><span class="lchip lchip--match">Established</span></dd></div>
+                <div><dt>Biometric check</dt><dd><span class="lchip lchip--match">Completed</span></dd></div>
+                <div><dt>Unresolved conflicts</dt><dd><span class="lchip lchip--neutral">None</span></dd></div>
+                <div><dt>Expires</dt><dd>24 Dec 2026</dd></div>
+                <div><dt>Name representation</dt><dd>MOHAMMED ABDULRAHMAN ALI</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="never-see reveal-onscroll">
+      <p class="never-title">What a verifying service never sees</p>
+      <div class="never-grid">
+        <div class="never-item"><i class="fa-solid fa-eye-slash"></i><span>Passport or ID scans</span></div>
+        <div class="never-item"><i class="fa-solid fa-eye-slash"></i><span>Document numbers</span></div>
+        <div class="never-item"><i class="fa-solid fa-eye-slash"></i><span>Raw biometric data</span></div>
+        <div class="never-item"><i class="fa-solid fa-eye-slash"></i><span>Your review history</span></div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       HELP — FAQ + contact
+       ===================================================================== -->
+  <section class="section" id="help">
+    <div class="slide">
+    <div class="help-grid">
+      <div class="help-side reveal-onscroll">
+        <h2 class="big-statement small">Questions,<br /><span class="grad-text">answered.</span></h2>
+        <div class="contact-card">
+          <i class="fa-regular fa-life-ring"></i>
+          <div>
+            <strong>Still stuck?</strong>
+            <p>Our team usually replies within one working day.</p>
+            <a href="signup.html" class="contact-link">Open a support request <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq reveal-onscroll">
+        <details open>
+          <summary>Is the temporary credential a government ID?<span class="faq-icon"></span></summary>
+          <p>No. It's a platform-issued, time-limited credential that participating services can choose to
+            accept. It doesn't replace a passport, national ID or any official document.</p>
+        </details>
+        <details>
+          <summary>My name is written differently on each document. Is that a problem?<span class="faq-icon"></span></summary>
+          <p>Usually not. Spacing, ordering, abbreviations and transliteration are recognised automatically
+            and recorded as explainable variants. Only genuinely different names go to a person for review.</p>
+        </details>
+        <details>
+          <summary>What happens if my case needs human review?<span class="faq-icon"></span></summary>
+          <p>You'll see a calm “Under review” status with the exact field in question. If more evidence
+            helps, you'll be asked for one specific document — not your whole file again.</p>
+        </details>
+        <details>
+          <summary>Do you store my face scan?<span class="faq-icon"></span></summary>
+          <p>We keep the verification result and a reference — passed, when, and how — not the raw
+            biometric data behind it.</p>
+        </details>
+        <details>
+          <summary>What happens when my permanent ID arrives?<span class="faq-icon"></span></summary>
+          <p>Upload it and it's checked against your existing identity record. If it's consistent, it's
+            linked and your temporary credential expires automatically.</p>
+        </details>
+      </div>
+    </div>
+
+    </div>
+  </section>
+
+  <!-- Last screen: closing banner + footer together -->
+  <div class="end-screen">
+    <div class="end-cta">
+    <div class="final-cta reveal-onscroll">
+      <svg class="final-dunes" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 170 C 220 90, 420 60, 600 90 S 980 170, 1200 120 L1200 300 L0 300 Z" fill="#2a1826"/>
+        <path d="M0 230 C 260 180, 480 250, 700 215 S 1040 170, 1200 205 L1200 300 L0 300 Z" fill="#0a0609"/>
+      </svg>
+      <div class="final-inner">
+        <h2 class="final-title">Your identity,<br />continued.</h2>
+        <p>Start with the documents you have today.</p>
+        <div class="cta-row">
+          <a href="signup.html" class="cta-primary">Get started</a>
+          <a href="login.html" class="cta-secondary">Log in</a>
+        </div>
+      </div>
+    </div>
+    </div>
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <span class="logo-mark" style="width:34px;height:34px;">
+              <svg viewBox="0 0 100 100" class="logo-svg" aria-hidden="true"><path class="lg-a" d="M49 10 L18 23 L18 42 C18 68 32 84 49 90"/><path class="lg-b" d="M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90"/><path class="lg-c" d="M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z"/></svg>
+            </span>
+            <span class="brand-name">Tawashir</span>
+          </a>
+          <p class="footer-note">
+            One evidence-backed identity across your passport, national ID and visa — verified by AI,
+            confirmed by biometrics, and bridged by a temporary credential while your permanent one
+            is on its way.
+          </p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <p class="footer-h">Product</p>
+            <a href="#how-it-works">How it works</a>
+            <a href="#for-organizations">For organizations</a>
+            <a href="#help">Help</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-h">Account</p>
+            <a href="login.html">Log in</a>
+            <a href="signup.html">Sign up</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Tawashir. All rights reserved.</span>
+        <span>Identity, built to continue.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
