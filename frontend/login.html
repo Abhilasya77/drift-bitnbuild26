@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in — Tawashir</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="bg"><canvas id="bg-canvas"></canvas></div>
+
+  <div class="auth-wrap">
+    <div class="auth-card anim">
+      <a href="index.html" class="auth-back">&larr; Back</a>
+      <h1>Log in to Tawashir</h1>
+      <p class="sub">Pick up your identity where you left off.</p>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="login-email">Email</label>
+          <input id="login-email" type="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="login-password">Password</label>
+          <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        <p class="form-error" id="login-error"></p>
+        <button type="submit" class="auth-submit">Log in</button>
+      </form>
+
+      <div class="demo-box">
+        <strong>Demo account</strong><br />
+        Email: demo@tawashir.io<br />
+        Password: Tawashir@2026
+        <br />
+        <button type="button" id="demo-fill" class="demo-fill">Fill demo credentials</button>
+      </div>
+
+      <p class="auth-footer">New here? <a href="signup.html">Create an account</a></p>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

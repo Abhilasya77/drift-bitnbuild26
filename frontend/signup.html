@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign up — Tawashir</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="logo.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke-width='9'%3E%3Cpath stroke='%238a6a9e' d='M49 10 L18 23 L18 42 C18 68 32 84 49 90'/%3E%3Cpath stroke='%235e4270' d='M49 10 L66 17 M80 31 L80 42 C80 68 66 84 49 90'/%3E%3C/g%3E%3Cpath fill='%23e98fae' d='M29 34 L48 44 L78 15 Q81 12.5 82.5 16.5 L52 59 Q48 64.5 44 59 L26 38 Q24.5 34 29 34 Z'/%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <div class="bg"><canvas id="bg-canvas"></canvas><div class="bg-grain"></div></div>
+
+  <div class="auth-wrap">
+    <div class="auth-card anim">
+      <a href="index.html" class="auth-back">&larr; Back</a>
+      <h1>Create your Tawashir account</h1>
+      <p class="sub">Creating an account doesn't verify your identity yet — that comes next, with your documents.</p>
+
+      <form id="signup-form" novalidate>
+        <div class="field">
+          <label for="signup-name">Full name</label>
+          <input id="signup-name" type="text" placeholder="Your name, the way you write it" autocomplete="name" required />
+          <span class="hint">No first / middle / last split — type it how you actually use it.</span>
+        </div>
+        <div class="field">
+          <label for="signup-email">Email</label>
+          <input id="signup-email" type="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="signup-password">Password</label>
+          <input id="signup-password" type="password" placeholder="••••••••" autocomplete="new-password" required />
+        </div>
+        <div class="field">
+          <label for="signup-confirm">Confirm password</label>
+          <input id="signup-confirm" type="password" placeholder="••••••••" autocomplete="new-password" required />
+        </div>
+        <p class="form-error" id="signup-error"></p>
+        <button type="submit" class="auth-submit">Create account</button>
+      </form>
+
+      <div class="demo-box">
+        <strong>Demo account</strong><br />
+        Name: Mohammed Abdul Rahman Ali<br />
+        Email: demo@tawashir.io<br />
+        Password: Tawashir@2026
+        <br />
+        <button type="button" id="signup-demo-fill" class="demo-fill">Fill demo details</button>
+      </div>
+
+      <p class="auth-footer">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
