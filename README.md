@@ -103,3 +103,8 @@ Synthetic demo documents (clearly marked SPECIMEN) are in `frontend/demo-docs/` 
 ## Team Drift
 
 Built in 36 hours for BitNBuild '26 by Team Drift (GDGoC BITS Pilani Dubai round).
+
+- Dola Abhilasya Uppaluri: credential, QR, Web3, integration
+- Shravani Kadali: frontend
+- Wasilah Abdul Hameed: AI/ML
+- Fatma Shagufta: backend
